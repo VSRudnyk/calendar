@@ -16,7 +16,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      <CalendarGrid />
+      <CalendarGrid startDay={startDay} />
     </>
   );
 };
