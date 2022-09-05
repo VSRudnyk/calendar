@@ -13,7 +13,6 @@ export const App = () => {
     calendar.push(day.clone());
     day.add(1, 'day');
   }
-  console.log(calendar);
   return (
     <>
       <Header />
