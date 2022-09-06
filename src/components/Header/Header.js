@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { BsPlusLg } from 'react-icons/bs';
-import { AddModal } from 'components/Modal/Modal';
+// import { AddModal } from 'components/Modal/Modal';
 import {
   Container,
   TextWrapper,
@@ -10,18 +9,13 @@ import {
   Month,
 } from './Header.styled';
 
-export const Header = ({ today, prevMonth, nextMonth }) => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Header = ({ today, prevMonth, nextMonth, openFormHandler }) => {
   const monthToday = today.format('MMMM');
   const yearToday = today.format('YYYY');
 
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <Container>
-      <OpenForm onClick={toggleModal}>
+      <OpenForm onClick={() => openFormHandler('Save')}>
         <BsPlusLg fill="white" />
       </OpenForm>
       <TextWrapper>
@@ -34,7 +28,7 @@ export const Header = ({ today, prevMonth, nextMonth }) => {
           <IoIosArrowForward onClick={nextMonth} />
         </ArrowBtn>
       </TextWrapper>
-      <AddModal isOpen={isOpen} toggleModal={toggleModal} />
+      {/* <AddModal isOpen={isOpen} toggleModal={toggleModal} /> */}
     </Container>
   );
 };

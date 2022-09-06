@@ -9,7 +9,13 @@ import {
   EventItemWrapper,
 } from './CalendarGrid.styled';
 
-export const CalendarGrid = ({ startDay, today, totalDays, events }) => {
+export const CalendarGrid = ({
+  startDay,
+  today,
+  totalDays,
+  events,
+  openFormHandler,
+}) => {
   const day = startDay.clone().subtract(1, 'day');
   const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
@@ -36,7 +42,11 @@ export const CalendarGrid = ({ startDay, today, totalDays, events }) => {
                 )
                 .map(event => (
                   <li key={event.id}>
-                    <EventItemWrapper>{event.title}</EventItemWrapper>
+                    <EventItemWrapper
+                      onClick={() => openFormHandler('Uptade', event)}
+                    >
+                      {event.title}
+                    </EventItemWrapper>
                   </li>
                 ))}
             </EventListWrapper>
