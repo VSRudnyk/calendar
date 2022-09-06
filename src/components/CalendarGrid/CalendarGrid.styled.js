@@ -36,3 +36,25 @@ export const DayOfWeek = styled.div`
 export const DayOfMounth = styled.div`
   font-size: 20px;
 `;
+
+export const EventListWrapper = styled.ul`
+  margin: unset;
+  list-style-position: inside;
+  padding-left: 4px;
+`;
+
+export const EventItemWrapper = styled.button`
+  position: relative;
+  left: -14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 114px;
+  border: unset;
+  background: unset;
+  color: #424242;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+`;

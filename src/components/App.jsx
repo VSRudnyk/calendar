@@ -18,7 +18,6 @@ export const App = () => {
   const nextMonth = () => setToday(prev => prev.clone().add(1, 'month'));
 
   const [events, setEvents] = useState([]);
-  console.log(events);
   const startDateQuery = startDay.clone().format('X');
   const endDateQure = startDay.clone().add(totalDays, 'days').format('X');
   useEffect(() => {
@@ -28,12 +27,17 @@ export const App = () => {
         console.log(res);
         setEvents(res);
       });
-  }, [endDateQure, startDateQuery]);
+  }, [endDateQure, startDateQuery, today]);
 
   return (
     <Container>
       <Header today={today} prevMonth={prevMonth} nextMonth={nextMonth} />
-      <CalendarGrid startDay={startDay} today={today} totalDays={totalDays} />
+      <CalendarGrid
+        startDay={startDay}
+        today={today}
+        totalDays={totalDays}
+        events={events}
+      />
     </Container>
   );
 };

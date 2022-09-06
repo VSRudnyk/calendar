@@ -5,9 +5,11 @@ import {
   DayOfWeek,
   DayOfMounth,
   DayWrapper,
+  EventListWrapper,
+  EventItemWrapper,
 } from './CalendarGrid.styled';
 
-export const CalendarGrid = ({ startDay, today, totalDays }) => {
+export const CalendarGrid = ({ startDay, today, totalDays, events }) => {
   const day = startDay.clone().subtract(1, 'day');
   const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
@@ -25,7 +27,19 @@ export const CalendarGrid = ({ startDay, today, totalDays }) => {
               <DayOfMounth>{dayItem.format('D')}</DayOfMounth>
               <DayOfWeek>{dayItem.format('dd')}</DayOfWeek>
             </DayWrapper>
-            <div>Event</div>
+            <EventListWrapper>
+              {events
+                .filter(
+                  event =>
+                    event.date >= dayItem.format('X') &&
+                    event.date <= dayItem.clone().endOf('day').format('X')
+                )
+                .map(event => (
+                  <li key={event.id}>
+                    <EventItemWrapper>{event.title}</EventItemWrapper>
+                  </li>
+                ))}
+            </EventListWrapper>
           </CellWrapper>
         );
       })}
