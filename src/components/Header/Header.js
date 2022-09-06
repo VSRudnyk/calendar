@@ -8,7 +8,7 @@ import {
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { BsPlusLg } from 'react-icons/bs';
 
-export const Header = ({ today }) => {
+export const Header = ({ today, prevMonth, nextMonth }) => {
   const monthToday = today.format('MMMM');
   const yearToday = today.format('YYYY');
 
@@ -19,12 +19,12 @@ export const Header = ({ today }) => {
       </OpenForm>
       <TextWrapper>
         <ArrowBtn>
-          <IoIosArrowBack />
+          <IoIosArrowBack onClick={prevMonth} />
         </ArrowBtn>
         <Month>{monthToday}</Month>
         <span>{yearToday}</span>
         <ArrowBtn>
-          <IoIosArrowForward />
+          <IoIosArrowForward onClick={nextMonth} />
         </ArrowBtn>
       </TextWrapper>
     </Container>

@@ -9,13 +9,11 @@ export const GridContainer = styled.div`
 
 export const CellWrapper = styled.div`
   min-width: 140px;
-  min-height: 100px;
+  min-height: 140px;
   border: 1px solid #9d9d9d;
   border-collapse: collapse;
   border-radius: 8px;
   padding: 8px;
-  display: flex;
-  justify-content: space-between;
   background-color: ${props =>
     props.isCurrentDay ? '#3096e73b' : 'transparent'};
   &:hover {
@@ -24,10 +22,18 @@ export const CellWrapper = styled.div`
   transition: all 0.2s ease 0s;
 `;
 
+export const DayWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+`;
+
 export const WeekDay = styled.div`
   color: ${props => (props.isWeekDay ? '#ff0000' : '#000')};
+  font-size: 20px;
 `;
 
 export const DayOfMounth = styled.div`
   color: ${props => (props.isWeekDay ? '#ff0000' : '#3c4043')};
+  font-size: 20px;
 `;
