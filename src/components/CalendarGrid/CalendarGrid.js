@@ -2,16 +2,22 @@ import moment from 'moment';
 import {
   GridContainer,
   CellWrapper,
-  WeekDay,
+  DayOfWeek,
   DayOfMounth,
   DayWrapper,
 } from './CalendarGrid.styled';
 
-export const CalendarGrid = ({ startDay }) => {
+// const storage = {
+//   events: [
+//     { id: 1, title: 'Go to the bed', description: 'Slowlly', date: 1662462763 },
+//   ],
+// };
+
+export const CalendarGrid = ({ startDay, today }) => {
   const day = startDay.clone().subtract(1, 'day');
   const daysArray = [...Array(35)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
-  console.log(currentDay);
+  const isSelectedMonth = day => today.isSame(day, 'month');
 
   return (
     <GridContainer>
@@ -21,15 +27,9 @@ export const CalendarGrid = ({ startDay }) => {
             key={dayItem.unix()}
             isCurrentDay={dayItem.format('D M YYYY') === currentDay}
           >
-            <DayWrapper>
-              <DayOfMounth
-                isWeekDay={dayItem.day() === 6 || dayItem.day() === 0}
-              >
-                {dayItem.format('D')}
-              </DayOfMounth>
-              <WeekDay isWeekDay={dayItem.day() === 6 || dayItem.day() === 0}>
-                {dayItem.format('dd')}
-              </WeekDay>
+            <DayWrapper isSelectedMonth={isSelectedMonth(dayItem)}>
+              <DayOfMounth>{dayItem.format('D')}</DayOfMounth>
+              <DayOfWeek>{dayItem.format('dd')}</DayOfWeek>
             </DayWrapper>
             <div>Event</div>
           </CellWrapper>

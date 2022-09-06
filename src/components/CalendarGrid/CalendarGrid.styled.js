@@ -26,14 +26,13 @@ export const DayWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
+  color: ${props => (props.isSelectedMonth ? '#000' : '#c5c5c5')};
 `;
 
-export const WeekDay = styled.div`
-  color: ${props => (props.isWeekDay ? '#ff0000' : '#000')};
+export const DayOfWeek = styled.div`
   font-size: 20px;
 `;
 
 export const DayOfMounth = styled.div`
-  color: ${props => (props.isWeekDay ? '#ff0000' : '#3c4043')};
   font-size: 20px;
 `;
