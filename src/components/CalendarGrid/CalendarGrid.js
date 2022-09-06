@@ -7,15 +7,9 @@ import {
   DayWrapper,
 } from './CalendarGrid.styled';
 
-// const storage = {
-//   events: [
-//     { id: 1, title: 'Go to the bed', description: 'Slowlly', date: 1662462763 },
-//   ],
-// };
-
-export const CalendarGrid = ({ startDay, today }) => {
+export const CalendarGrid = ({ startDay, today, totalDays }) => {
   const day = startDay.clone().subtract(1, 'day');
-  const daysArray = [...Array(35)].map(() => day.add(1, 'day').clone());
+  const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
   const isSelectedMonth = day => today.isSame(day, 'month');
 
