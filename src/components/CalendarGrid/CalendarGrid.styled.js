@@ -16,7 +16,8 @@ export const CellWrapper = styled.div`
   padding: 8px;
   display: flex;
   justify-content: space-between;
-  background-color: ${props => (props.isWeekend ? '#e9e9e9' : '#fff')};
+  background-color: ${props =>
+    props.isCurrentDay ? '#3096e73b' : 'transparent'};
   &:hover {
     transform: scale(1.02);
   }
@@ -24,9 +25,9 @@ export const CellWrapper = styled.div`
 `;
 
 export const WeekDay = styled.div`
-  color: #000000;
+  color: ${props => (props.isWeekDay ? '#ff0000' : '#000')};
 `;
 
 export const DayOfMounth = styled.div`
-  color: #3c4043;
+  color: ${props => (props.isWeekDay ? '#ff0000' : '#3c4043')};
 `;
