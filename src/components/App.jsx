@@ -42,8 +42,19 @@ export const App = () => {
   };
 
   const eventSave = () => {
-    const convertDate = moment(event.date).unix();
-    setEvents(prevState => [...prevState, { ...event, date: convertDate }]);
+    // const convertDate = moment(event.date).unix();
+    // setEvents(prevState => [...prevState, { ...event, date: convertDate }]);
+    if (method === 'Update') {
+      setEvents(prevState =>
+        prevState.map(eventElement =>
+          eventElement.id === event.id ? event : eventElement
+        )
+      );
+    } else {
+      setEvents(prevState => [...prevState, event]);
+    }
+
+    closeMadal();
   };
 
   useEffect(() => {

@@ -31,8 +31,9 @@ export const CalendarGrid = ({ startDay, today, events, openFormHandler }) => {
               {events
                 .filter(
                   event =>
-                    event.date >= dayItem.format('X') &&
-                    event.date <= dayItem.clone().endOf('day').format('X')
+                    moment(event.date).unix() >= dayItem.format('X') &&
+                    moment(event.date).unix() <=
+                      dayItem.clone().endOf('day').format('X')
                 )
                 .map(event => (
                   <li key={event.id}>
