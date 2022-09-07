@@ -1,57 +1,34 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
+import { useFormik } from 'formik';
+import { v4 as uuidv4 } from 'uuid';
 import { CalendarGrid } from './CalendarGrid';
 import { Header } from './Header/Header';
-import {
-  Container,
-  FormPositionWrapper,
-  FormWrapper,
-  EventTitle,
-  EventBody,
-  ButtonWrapper,
-} from './App.styled';
-
-const url = 'http://localhost:5000';
-const totalDays = 42;
-const defaultEvent = {
-  title: '',
-  description: '',
-  date: moment().format('X'),
-};
+import { Container } from './App.styled';
+import { FormModal } from './Modal/Modal';
 
 export const App = () => {
   const [today, setToday] = useState(moment());
-  const [isShowForm, setIsShowForm] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState(null);
-  const [method, setMethod] = useState(null);
-  moment.updateLocale('en', { week: { dow: 1 } });
+  const [isOpen, setIsOpen] = useState(false);
+  const [event, setEvent] = useState();
+  const [events, setEvents] = useState(() => {
+    return JSON.parse(localStorage.getItem('events')) ?? [];
+  });
+  const [isUpdate, setIsUpdate] = useState(false);
 
-  const startDay = today.clone().startOf('month').startOf('week');
-
-  const prevMonth = () => setToday(prev => prev.clone().subtract(1, 'month'));
-  const nextMonth = () => setToday(prev => prev.clone().add(1, 'month'));
-
-  const startDateQuery = startDay.clone().format('X');
-  const endDateQure = startDay.clone().add(totalDays, 'days').format('X');
-  useEffect(() => {
-    fetch(`${url}/events?date_gte=${startDateQuery}&date_lte=${endDateQure}`)
-      .then(res => res.json())
-      .then(res => {
-        setEvents(res);
-      });
-  }, [endDateQure, startDateQuery, today]);
-
-  const openFormHandler = (methodName, eventForUpdate) => {
-    console.log(methodName);
-    setIsShowForm(true);
-    setEvent(eventForUpdate || defaultEvent);
-    setMethod(methodName);
+  const defaultEvent = {
+    title: '',
+    description: '',
+    date: '',
   };
 
-  const closeForm = () => {
-    setIsShowForm(false);
-    setEvent(null);
+  const toggleModal = eventFromForm => {
+    setIsOpen(!isOpen);
+    setEvent(eventFromForm || defaultEvent);
+  };
+
+  const togleIsUpdate = () => {
+    setIsUpdate(true);
   };
 
   const changEventHandler = (text, field) => {
@@ -61,41 +38,55 @@ export const App = () => {
     }));
   };
 
+  const formik = useFormik({
+    initialValues: {
+      id: uuidv4(),
+      title: '',
+      description: '',
+      date: '',
+    },
+    onSubmit: (values, { resetForm }) => {
+      const convertDate = moment(values.date).unix();
+      setEvents(prevState => [...prevState, { ...values, date: convertDate }]);
+      resetForm();
+      toggleModal();
+    },
+  });
+
+  useEffect(() => {
+    localStorage.setItem('events', JSON.stringify(events));
+  }, [events]);
+
+  moment.updateLocale('en', { week: { dow: 1 } });
+
+  const startDay = today.clone().startOf('month').startOf('week');
+
+  const prevMonth = () => setToday(prev => prev.clone().subtract(1, 'month'));
+  const nextMonth = () => setToday(prev => prev.clone().add(1, 'month'));
+
   return (
-    <>
-      {isShowForm ? (
-        <FormPositionWrapper onClick={closeForm}>
-          <FormWrapper onClick={e => e.stopPropagation()}>
-            <EventTitle
-              onChange={e => changEventHandler(e.target.value, 'title')}
-              value={event.title}
-            />
-            <EventBody
-              onChange={e => changEventHandler(e.target.value, 'description')}
-              value={event.description}
-            />
-            <ButtonWrapper>
-              <button onClick={closeForm}>Cancel</button>
-              <button>{method}</button>
-            </ButtonWrapper>
-          </FormWrapper>
-        </FormPositionWrapper>
-      ) : null}
-      <Container>
-        <Header
-          today={today}
-          prevMonth={prevMonth}
-          nextMonth={nextMonth}
-          openFormHandler={openFormHandler}
-        />
-        <CalendarGrid
-          startDay={startDay}
-          today={today}
-          totalDays={totalDays}
-          events={events}
-          openFormHandler={openFormHandler}
-        />
-      </Container>
-    </>
+    <Container>
+      <Header
+        today={today}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+        toggleModal={toggleModal}
+      />
+      <FormModal
+        formik={formik}
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        isUpdate={isUpdate}
+        event={event}
+        changEventHandler={changEventHandler}
+      />
+      <CalendarGrid
+        startDay={startDay}
+        today={today}
+        events={events}
+        toggleModal={toggleModal}
+        togleIsUpdate={togleIsUpdate}
+      />
+    </Container>
   );
 };

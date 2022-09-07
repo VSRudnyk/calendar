@@ -36,7 +36,3 @@ export const OpenForm = styled.button`
 export const Month = styled.span`
   margin-right: 12px;
 `;
-
-export const Year = styled.span`
-  margin-left: 12px;
-`;

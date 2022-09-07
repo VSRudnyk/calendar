@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
-import { useFormik } from 'formik';
 import { GrClose } from 'react-icons/gr';
+
 import {
   CloseBtn,
   IdeaTitle,
@@ -26,20 +26,14 @@ const customStyles = {
   },
 };
 
-export const AddModal = ({ isOpen, toggleModal }) => {
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      description: '',
-      date: '',
-      time: '',
-    },
-    onSubmit: (values, { resetForm }) => {
-      console.log(values);
-      resetForm();
-    },
-  });
-
+export const FormModal = ({
+  formik,
+  isOpen,
+  toggleModal,
+  isUpdate,
+  event,
+  changEventHandler,
+}) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -59,16 +53,24 @@ export const AddModal = ({ isOpen, toggleModal }) => {
           name="title"
           type="text"
           required
-          onChange={formik.handleChange}
-          value={formik.values.title}
+          onChange={
+            isUpdate
+              ? e => changEventHandler(e.target.value, 'title')
+              : formik.handleChange
+          }
+          value={isUpdate ? event.title : formik.values.title}
         />
         <label htmlFor="description">Description</label>
         <InputDescription
           id="description"
           name="description"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.description}
+          onChange={
+            isUpdate
+              ? e => changEventHandler(e.target.value, 'description')
+              : formik.handleChange
+          }
+          value={isUpdate ? event.description : formik.values.description}
         />
         <InputContainer>
           <DateWrapper>
@@ -76,20 +78,10 @@ export const AddModal = ({ isOpen, toggleModal }) => {
             <Input
               id="date"
               name="date"
-              type="date"
+              type="datetime-local"
               required
               onChange={formik.handleChange}
               value={formik.values.date}
-            />
-          </DateWrapper>
-          <DateWrapper>
-            <label htmlFor="time">Time</label>
-            <Input
-              id="time"
-              name="time"
-              type="time"
-              onChange={formik.handleChange}
-              value={formik.values.time}
             />
           </DateWrapper>
         </InputContainer>

@@ -1,6 +1,5 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { BsPlusLg } from 'react-icons/bs';
-// import { AddModal } from 'components/Modal/Modal';
 import {
   Container,
   TextWrapper,
@@ -9,26 +8,25 @@ import {
   Month,
 } from './Header.styled';
 
-export const Header = ({ today, prevMonth, nextMonth, openFormHandler }) => {
+export const Header = ({ today, prevMonth, nextMonth, toggleModal }) => {
   const monthToday = today.format('MMMM');
   const yearToday = today.format('YYYY');
 
   return (
     <Container>
-      <OpenForm onClick={() => openFormHandler('Save')}>
+      <OpenForm onClick={toggleModal}>
         <BsPlusLg fill="white" />
       </OpenForm>
       <TextWrapper>
-        <Month>{monthToday}</Month>
-        <span>{yearToday}</span>
         <ArrowBtn>
           <IoIosArrowBack onClick={prevMonth} />
         </ArrowBtn>
+        <Month>{monthToday}</Month>
+        <span>{yearToday}</span>
         <ArrowBtn>
           <IoIosArrowForward onClick={nextMonth} />
         </ArrowBtn>
       </TextWrapper>
-      {/* <AddModal isOpen={isOpen} toggleModal={toggleModal} /> */}
     </Container>
   );
 };

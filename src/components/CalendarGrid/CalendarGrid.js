@@ -12,12 +12,12 @@ import {
 export const CalendarGrid = ({
   startDay,
   today,
-  totalDays,
   events,
-  openFormHandler,
+  toggleModal,
+  togleIsUpdate,
 }) => {
   const day = startDay.clone().subtract(1, 'day');
-  const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
+  const daysArray = [...Array(35)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
   const isSelectedMonth = day => today.isSame(day, 'month');
 
@@ -43,7 +43,10 @@ export const CalendarGrid = ({
                 .map(event => (
                   <li key={event.id}>
                     <EventItemWrapper
-                      onClick={() => openFormHandler('Uptade', event)}
+                      onClick={() => {
+                        togleIsUpdate();
+                        toggleModal(event);
+                      }}
                     >
                       {event.title}
                     </EventItemWrapper>
