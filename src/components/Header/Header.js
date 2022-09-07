@@ -1,4 +1,6 @@
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { BsPlusLg } from 'react-icons/bs';
 import {
   Container,
@@ -8,7 +10,13 @@ import {
   Month,
 } from './Header.styled';
 
-export const Header = ({ today, prevMonth, nextMonth, openFormHandler }) => {
+export const Header = ({
+  today,
+  prevMonth,
+  nextMonth,
+  openFormHandler,
+  changeMonAndYear,
+}) => {
   const monthToday = today.format('MMMM');
   const yearToday = today.format('YYYY');
 
@@ -22,14 +30,19 @@ export const Header = ({ today, prevMonth, nextMonth, openFormHandler }) => {
         <BsPlusLg fill="white" />
       </OpenForm>
       <TextWrapper>
-        <ArrowBtn>
-          <IoIosArrowBack onClick={prevMonth} />
-        </ArrowBtn>
         <Month>{monthToday}</Month>
         <span>{yearToday}</span>
         <ArrowBtn>
+          <IoIosArrowBack onClick={prevMonth} />
+        </ArrowBtn>
+        <ArrowBtn>
           <IoIosArrowForward onClick={nextMonth} />
         </ArrowBtn>
+        <DatePicker
+          onChange={date => changeMonAndYear(date)}
+          dateFormat="yyyy, MMM"
+          showMonthYearPicker
+        />
       </TextWrapper>
     </Container>
   );

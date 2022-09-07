@@ -58,3 +58,7 @@ export const EventItemWrapper = styled.button`
   padding: 0;
   text-align: left;
 `;
+
+export const Item = styled.li`
+  padding-left: 8px;
+`;

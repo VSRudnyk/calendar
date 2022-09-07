@@ -7,6 +7,7 @@ import {
   DayWrapper,
   EventListWrapper,
   EventItemWrapper,
+  Item,
 } from './CalendarGrid.styled';
 
 export const CalendarGrid = ({ startDay, today, events, openFormHandler }) => {
@@ -36,7 +37,7 @@ export const CalendarGrid = ({ startDay, today, events, openFormHandler }) => {
                       dayItem.clone().endOf('day').format('X')
                 )
                 .map(event => (
-                  <li key={event.id}>
+                  <Item key={event.id}>
                     <EventItemWrapper
                       onClick={() => {
                         openFormHandler('Update', event);
@@ -44,7 +45,7 @@ export const CalendarGrid = ({ startDay, today, events, openFormHandler }) => {
                     >
                       {event.title}
                     </EventItemWrapper>
-                  </li>
+                  </Item>
                 ))}
             </EventListWrapper>
           </CellWrapper>

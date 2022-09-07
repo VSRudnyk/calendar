@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FormPositionWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.35);
   top: 0;
@@ -11,68 +11,67 @@ export const FormPositionWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 `;
 
 export const FormWrapper = styled.div`
+  position: absolute;
   border-radius: 8px;
   overflow: hidden;
-  width: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 32px;
   background-color: white;
 `;
 
-export const Input = styled.input`
-  padding: 4px 14px;
-  width: 60%;
-
-  outline: unset;
+export const Label = styled.label`
+  color: #a5a5a5;
+  margin-bottom: 8px;
 `;
 
-// export const CloseBtn = styled.button`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 30px;
-//   height: 30px;
-//   cursor: pointer;
-//   border-radius: 50%;
-//   border: none;
-//   position: absolute;
-//   top: 16px;
-//   right: 16px;
-// `;
+export const Input = styled.input`
+  height: 25px;
+  padding: 4px 14px;
+  margin-bottom: 24px;
+  border: 1px solid #a5a5a5;
+  outline: none;
+  border-radius: 8px;
+`;
 
-// export const IdeaTitle = styled.div`
-//   font-size: 24px;
-//   font-weight: 500;
-// `;
+export const Textarea = styled.textarea`
+  resize: none;
+  height: 70px;
+  padding: 4px 14px;
+  margin-bottom: 24px;
+  border: 1px solid #a5a5a5;
+  outline: none;
+  border-radius: 8px;
+`;
 
-// export const FormContainer = styled.form`
-//   display: flex;
-//   flex-direction: column;
+export const CloseBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+`;
 
-//   padding: 15px;
-// `;
+export const AccessBtn = styled.button`
+  border: unset;
+  border-radius: 8px;
+  height: 35px;
+  background-color: #3096e7;
+  color: #fff;
+`;
 
-// export const Input = styled.input`
-//   margin-bottom: 16px;
-// `;
-
-// export const InputDescription = styled.textarea`
-//   height: 100px;
-//   margin-bottom: 16px;
-//   resize: none;
-// `;
-
-// export const InputContainer = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-// `;
-
-// export const DateWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-// `;
-
-// export const Submit = styled.button`
-//   width: 70px;
-// `;
+export const TimeCreated = styled.span`
+  color: #a5a5a5;
+  margin-bottom: 12px;
+`;

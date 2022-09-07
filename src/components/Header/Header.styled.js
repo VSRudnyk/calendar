@@ -18,7 +18,7 @@ export const ArrowBtn = styled.button`
   border: none;
   cursor: pointer;
   overflow: hidden;
-  padding-top: 5px;
+  padding: 5px 16px 0 8px;
 `;
 
 export const OpenForm = styled.button`

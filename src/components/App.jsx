@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-
 import { v4 as uuidv4 } from 'uuid';
 import { CalendarGrid } from './CalendarGrid';
 import { Header } from './Header';
@@ -23,6 +22,8 @@ export const App = () => {
     return JSON.parse(localStorage.getItem('events')) ?? [];
   });
 
+  console.log(today);
+
   const openFormHandler = (methodName, eventForUpdate) => {
     setEvent(eventForUpdate || defaultEvent);
     setIsOpen(true);
@@ -41,9 +42,12 @@ export const App = () => {
     }));
   };
 
+  const changeMonAndYear = data => {
+    console.log(data);
+    setToday(prev => prev.clone().subtract(5, 'month'));
+  };
+
   const eventSave = () => {
-    // const convertDate = moment(event.date).unix();
-    // setEvents(prevState => [...prevState, { ...event, date: convertDate }]);
     if (method === 'Update') {
       setEvents(prevState =>
         prevState.map(eventElement =>
@@ -53,7 +57,6 @@ export const App = () => {
     } else {
       setEvents(prevState => [...prevState, event]);
     }
-
     closeMadal();
   };
 
@@ -75,6 +78,7 @@ export const App = () => {
         prevMonth={prevMonth}
         nextMonth={nextMonth}
         openFormHandler={openFormHandler}
+        changeMonAndYear={changeMonAndYear}
       />
       <AddModal
         isOpen={isOpen}
