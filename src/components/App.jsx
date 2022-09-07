@@ -1,57 +1,50 @@
 import { useState, useEffect } from 'react';
 import moment from 'moment';
-import { useFormik } from 'formik';
+
 import { v4 as uuidv4 } from 'uuid';
 import { CalendarGrid } from './CalendarGrid';
-import { Header } from './Header/Header';
+import { Header } from './Header';
 import { Container } from './App.styled';
-import { FormModal } from './Modal/Modal';
+import { AddModal } from './Modal';
+
+const defaultEvent = {
+  id: uuidv4(),
+  title: '',
+  description: '',
+  date: '',
+};
 
 export const App = () => {
   const [today, setToday] = useState(moment());
   const [isOpen, setIsOpen] = useState(false);
-  const [event, setEvent] = useState();
+  const [event, setEvent] = useState(null);
+  const [method, setMethod] = useState(null);
   const [events, setEvents] = useState(() => {
     return JSON.parse(localStorage.getItem('events')) ?? [];
   });
-  const [isUpdate, setIsUpdate] = useState(false);
 
-  const defaultEvent = {
-    title: '',
-    description: '',
-    date: '',
+  const openFormHandler = (methodName, eventForUpdate) => {
+    setEvent(eventForUpdate || defaultEvent);
+    setIsOpen(true);
+    setMethod(methodName);
   };
 
-  const toggleModal = eventFromForm => {
-    setIsOpen(!isOpen);
-    setEvent(eventFromForm || defaultEvent);
+  const closeMadal = () => {
+    setIsOpen(false);
+    setEvent(null);
   };
 
-  const togleIsUpdate = () => {
-    setIsUpdate(true);
-  };
-
-  const changEventHandler = (text, field) => {
+  const changeEvent = (text, field) => {
     setEvent(prevState => ({
       ...prevState,
       [field]: text,
     }));
   };
 
-  const formik = useFormik({
-    initialValues: {
-      id: uuidv4(),
-      title: '',
-      description: '',
-      date: '',
-    },
-    onSubmit: (values, { resetForm }) => {
-      const convertDate = moment(values.date).unix();
-      setEvents(prevState => [...prevState, { ...values, date: convertDate }]);
-      resetForm();
-      toggleModal();
-    },
-  });
+  const eventSave = () => {
+    const convertDate = moment(event.date).unix();
+    setEvents(prevState => [...prevState, { ...event, date: convertDate }]);
+  };
 
   useEffect(() => {
     localStorage.setItem('events', JSON.stringify(events));
@@ -70,22 +63,21 @@ export const App = () => {
         today={today}
         prevMonth={prevMonth}
         nextMonth={nextMonth}
-        toggleModal={toggleModal}
+        openFormHandler={openFormHandler}
       />
-      <FormModal
-        formik={formik}
+      <AddModal
         isOpen={isOpen}
-        toggleModal={toggleModal}
-        isUpdate={isUpdate}
         event={event}
-        changEventHandler={changEventHandler}
+        changeEvent={changeEvent}
+        closeMadal={closeMadal}
+        method={method}
+        eventSave={eventSave}
       />
       <CalendarGrid
         startDay={startDay}
         today={today}
         events={events}
-        toggleModal={toggleModal}
-        togleIsUpdate={togleIsUpdate}
+        openFormHandler={openFormHandler}
       />
     </Container>
   );

@@ -9,13 +9,7 @@ import {
   EventItemWrapper,
 } from './CalendarGrid.styled';
 
-export const CalendarGrid = ({
-  startDay,
-  today,
-  events,
-  toggleModal,
-  togleIsUpdate,
-}) => {
+export const CalendarGrid = ({ startDay, today, events, openFormHandler }) => {
   const day = startDay.clone().subtract(1, 'day');
   const daysArray = [...Array(35)].map(() => day.add(1, 'day').clone());
   const currentDay = moment().format('D M YYYY');
@@ -44,8 +38,7 @@ export const CalendarGrid = ({
                   <li key={event.id}>
                     <EventItemWrapper
                       onClick={() => {
-                        togleIsUpdate();
-                        toggleModal(event);
+                        openFormHandler('Update', event);
                       }}
                     >
                       {event.title}

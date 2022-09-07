@@ -8,13 +8,17 @@ import {
   Month,
 } from './Header.styled';
 
-export const Header = ({ today, prevMonth, nextMonth, toggleModal }) => {
+export const Header = ({ today, prevMonth, nextMonth, openFormHandler }) => {
   const monthToday = today.format('MMMM');
   const yearToday = today.format('YYYY');
 
   return (
     <Container>
-      <OpenForm onClick={toggleModal}>
+      <OpenForm
+        onClick={() => {
+          openFormHandler('Save');
+        }}
+      >
         <BsPlusLg fill="white" />
       </OpenForm>
       <TextWrapper>
