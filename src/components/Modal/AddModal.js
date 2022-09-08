@@ -1,3 +1,4 @@
+import 'react-datepicker/dist/react-datepicker.css';
 import { GrClose } from 'react-icons/gr';
 import moment from 'moment';
 
