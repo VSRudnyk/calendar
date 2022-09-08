@@ -22,8 +22,6 @@ export const App = () => {
     return JSON.parse(localStorage.getItem('events')) ?? [];
   });
 
-  console.log(today);
-
   const openFormHandler = (methodName, eventForUpdate) => {
     setEvent(eventForUpdate || defaultEvent);
     setIsOpen(true);
@@ -43,8 +41,7 @@ export const App = () => {
   };
 
   const changeMonAndYear = data => {
-    console.log(data);
-    setToday(prev => prev.clone().subtract(5, 'month'));
+    setToday(moment(data));
   };
 
   const eventSave = () => {

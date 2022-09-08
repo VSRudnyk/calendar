@@ -1,4 +1,5 @@
 import { GrClose } from 'react-icons/gr';
+import moment from 'moment';
 
 import {
   FormPositionWrapper,
@@ -27,10 +28,10 @@ export const AddModal = ({
             <h2>{method === 'Update' ? 'Edit' : 'Add new'} idea item</h2>
             <TimeCreated>
               {method === 'Update'
-                ? `Created at: ${event.date
-                    .toLocaleString()
-                    .split('T')
-                    .join(' ')}`
+                ? `Created at: ${moment(event.date).format(
+                    'DD.MM.YYYY HH:mm:ss'
+                  )}
+                    `
                 : ''}
             </TimeCreated>
             <Label htmlFor="title">Title*</Label>
