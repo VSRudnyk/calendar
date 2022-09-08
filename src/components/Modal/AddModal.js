@@ -29,9 +29,7 @@ export const AddModal = ({
             <h2>{method === 'Update' ? 'Edit' : 'Add new'} idea item</h2>
             <TimeCreated>
               {method === 'Update'
-                ? `Created at: ${moment(event.date).format(
-                    'DD.MM.YYYY HH:mm:ss'
-                  )}
+                ? `Created at: ${moment().format('DD.MM.YYYY HH:mm:ss')}
                     `
                 : ''}
             </TimeCreated>
