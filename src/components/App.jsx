@@ -13,6 +13,8 @@ const defaultEvent = {
   date: '',
 };
 
+// const url = 'https://...';
+
 export const App = () => {
   const [today, setToday] = useState(moment());
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +23,12 @@ export const App = () => {
   const [events, setEvents] = useState(() => {
     return JSON.parse(localStorage.getItem('events')) ?? [];
   });
+
+  // useEffect(() => {
+  //   fetch(`${url}/events`)
+  //     .then(res => res.json())
+  //     .then(res => setEvents(res));
+  // }, [today]);
 
   const openFormHandler = (methodName, eventForUpdate) => {
     setEvent(eventForUpdate || defaultEvent);
@@ -45,6 +53,31 @@ export const App = () => {
   };
 
   const eventSave = () => {
+    // const fetchUrl =
+    //   method === 'Update' ? `${url}/events/${event.id}` : `${url}/events`;
+    // const httpMethod = method === 'Update' ? 'PATCH' : 'POST';
+
+    // fetch(fetchUrl, {
+    //   method: httpMethod,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(event),
+    // })
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     if (method === 'Update') {
+    //       setEvents(prevState =>
+    //         prevState.map(eventElement =>
+    //           eventElement.id === res.id ? res : eventElement
+    //         )
+    //       );
+    //     } else {
+    //       setEvents(prevState => [...prevState, event]);
+    //     }
+    //     closeMadal();
+    //   });
+
     if (method === 'Update') {
       setEvents(prevState =>
         prevState.map(eventElement =>
