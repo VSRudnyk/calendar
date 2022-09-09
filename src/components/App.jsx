@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import moment, { now } from 'moment';
+import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import { CalendarGrid } from './CalendarGrid';
 import { Header } from './Header';
