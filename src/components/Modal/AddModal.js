@@ -1,4 +1,3 @@
-import 'react-datepicker/dist/react-datepicker.css';
 import { GrClose } from 'react-icons/gr';
 import moment from 'moment';
 
@@ -38,6 +37,7 @@ export const AddModal = ({
               id="title"
               onChange={e => changeEvent(e.target.value, 'title')}
               value={event.title}
+              required
             />
             <Label htmlFor="description">Description</Label>
             <Textarea
@@ -56,7 +56,13 @@ export const AddModal = ({
             <CloseBtn onClick={closeMadal}>
               <GrClose />
             </CloseBtn>
-            <AccessBtn onClick={eventSave}>{method}</AccessBtn>
+            <AccessBtn
+              type="submit"
+              disabled={event.title === '' || event.date === '' ? true : false}
+              onClick={eventSave}
+            >
+              {method}
+            </AccessBtn>
           </FormWrapper>
         </FormPositionWrapper>
       ) : null}
